@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login - ITG Room Booking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#0053db",
+                        "surface-container": "#e7eeff",
+                        "primary": "#004ac6",
+                        "outline-variant": "#c3c6d7",
+                        "on-primary-fixed": "#00174b",
+                        "surface-bright": "#f9f9ff",
+                        "error-container": "#ffdad6",
+                        "on-background": "#111c2d",
+                        "on-surface-variant": "#434655",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f9f9ff",
+                        "secondary-fixed": "#bbf7d0",
+                        "on-secondary-fixed": "#14532d",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#cfdaf2",
+                        "on-secondary-container": "#14532d",
+                        "on-surface": "#111c2d",
+                        "on-secondary-fixed-variant": "#166534",
+                        "tertiary-container": "#696d74",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#43474d",
+                        "on-tertiary-container": "#edf0f8",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#86efac",
+                        "background": "#f9f9ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#dee8ff",
+                        "surface-container-low": "#f0f3ff",
+                        "on-primary-container": "#eeefff",
+                        "secondary": "#16a34a",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#d8e3fb",
+                        "tertiary-fixed-dim": "#c3c6ce",
+                        "primary-container": "#2563eb",
+                        "outline": "#737686",
+                        "tertiary-fixed": "#dfe2ea",
+                        "inverse-surface": "#263143",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-highest": "#d8e3fb",
+                        "inverse-on-surface": "#ecf1ff",
+                        "secondary-container": "#bbf7d0",
+                        "tertiary": "#51555b",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-tertiary-fixed": "#181c21",
+                        "primary-fixed": "#dbe1ff",
+                        "primary-fixed-dim": "#b4c5ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "stack-lg": "48px",
+                        "container-max": "1280px",
+                        "stack-sm": "12px",
+                        "margin-page": "32px",
+                        "gutter": "24px",
+                        "stack-xs": "4px",
+                        "stack-md": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Manrope"],
+                        "body-sm": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "button": ["Manrope"],
+                        "h1": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "h2": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "h3": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "button": ["15px", { "lineHeight": "1.0", "fontWeight": "600" }],
+                        "h1": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex items-center justify-center p-4">
+<!-- Login Container -->
+<main class="w-full max-w-md bg-surface-container-lowest rounded-xl shadow-[0_8px_32px_rgba(37,99,235,0.08)] border border-outline-variant/30 overflow-hidden relative backdrop-blur-md">
+<!-- Top Gradient Accent -->
+<div class="h-2 w-full bg-gradient-to-r from-primary to-secondary"></div>
+<div class="p-8 sm:p-10 flex flex-col gap-8">
+<!-- Header / Logo -->
+<header class="text-center flex flex-col items-center gap-4">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="domain">domain</span>
+</div>
+<div>
+<h1 class="font-h2 text-h2 text-on-surface">ITG Room Booking</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">Secure access to the academic portal</p>
+</div>
+</header>
+<!-- Login Form -->
+<form action="#" class="flex flex-col gap-6">
+<!-- Role Selection (Bento-style radio group) -->
+<fieldset class="flex flex-col gap-3">
+<legend class="font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase">Select Role</legend>
+<div class="grid grid-cols-3 gap-3">
+<label class="cursor-pointer relative">
+<input checked="" class="peer sr-only" name="role" type="radio" value="student"/>
+<div class="rounded-lg border border-outline-variant p-3 text-center transition-all peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:shadow-sm">
+<span class="material-symbols-outlined text-outline peer-checked:text-primary mb-1 block" data-icon="school">school</span>
+<span class="font-label-caps text-label-caps text-on-surface peer-checked:text-primary font-semibold">Student</span>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="role" type="radio" value="kajur"/>
+<div class="rounded-lg border border-outline-variant p-3 text-center transition-all peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:shadow-sm">
+<span class="material-symbols-outlined text-outline peer-checked:text-primary mb-1 block" data-icon="account_balance">account_balance</span>
+<span class="font-label-caps text-label-caps text-on-surface peer-checked:text-primary font-semibold">Kajur</span>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="role" type="radio" value="admin"/>
+<div class="rounded-lg border border-outline-variant p-3 text-center transition-all peer-checked:border-primary peer-checked:bg-primary-container/10 peer-checked:shadow-sm">
+<span class="material-symbols-outlined text-outline peer-checked:text-primary mb-1 block" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="font-label-caps text-label-caps text-on-surface peer-checked:text-primary font-semibold">Admin</span>
+</div>
+</label>
+</div>
+</fieldset>
+<!-- Credentials -->
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="identifier">Email or NIM</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="badge">badge</span>
+<input class="w-full rounded-lg border border-outline-variant bg-surface py-3 pl-10 pr-4 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="identifier" name="identifier" placeholder="Enter your ID" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="password">Password</label>
+<a class="font-label-caps text-label-caps text-primary hover:text-primary-fixed-variant transition-colors" href="#">Forgot?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="lock">lock</span>
+<input class="w-full rounded-lg border border-outline-variant bg-surface py-3 pl-10 pr-4 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="password" name="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Submit Action -->
+<button class="w-full rounded-lg bg-secondary py-3 px-4 font-button text-button text-on-secondary shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 mt-2" type="submit">
+<span>Sign In</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<!-- Footer -->
+<footer class="text-center mt-2 border-t border-outline-variant/30 pt-6">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Need technical assistance? <a class="text-primary font-semibold hover:underline" href="#">Contact IT Support</a>
+</p>
+</footer>
+</div>
+</main>
+<!-- Decorative Background Elements (Glassmorphism blobs) -->
+<div class="fixed top-[-10%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-primary/5 blur-[120px] -z-10 pointer-events-none"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[30vw] h-[30vw] rounded-full bg-secondary/5 blur-[100px] -z-10 pointer-events-none"></div>
+</body></html>

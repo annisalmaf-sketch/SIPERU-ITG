@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manage Rooms - ITG Academic Portal</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Manrope -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-tint": "#2563eb",
+                        "surface-container": "#e7eeff",
+                        "primary": "#2563eb",
+                        "outline-variant": "#c3c6d7",
+                        "on-primary-fixed": "#00174b",
+                        "surface-bright": "#f9f9ff",
+                        "error-container": "#ffdad6",
+                        "on-background": "#111c2d",
+                        "on-surface-variant": "#434655",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f9f9ff",
+                        "secondary-fixed": "#c1ecd2",
+                        "on-secondary-fixed": "#002111",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#cfdaf2",
+                        "on-secondary-container": "#002111",
+                        "on-surface": "#111c2d",
+                        "on-secondary-fixed-variant": "#00522e",
+                        "tertiary-container": "#696d74",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#43474d",
+                        "on-tertiary-container": "#edf0f8",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#a5d0b7",
+                        "background": "#f9f9ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#dee8ff",
+                        "surface-container-low": "#f0f3ff",
+                        "on-primary-container": "#eeefff",
+                        "secondary": "#10b981",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#d8e3fb",
+                        "tertiary-fixed-dim": "#c3c6ce",
+                        "primary-container": "#3b82f6",
+                        "outline": "#737686",
+                        "tertiary-fixed": "#dfe2ea",
+                        "inverse-surface": "#263143",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-highest": "#d8e3fb",
+                        "inverse-on-surface": "#ecf1ff",
+                        "secondary-container": "#34d399",
+                        "tertiary": "#51555b",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-tertiary-fixed": "#181c21",
+                        "primary-fixed": "#dbe1ff",
+                        "primary-fixed-dim": "#b4c5ff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "unit": "8px",
+                        "stack-lg": "48px",
+                        "container-max": "1280px",
+                        "stack-sm": "12px",
+                        "margin-page": "32px",
+                        "gutter": "24px",
+                        "stack-xs": "4px",
+                        "stack-md": "24px"
+                    },
+                    fontFamily: {
+                        "display-lg": ["Manrope"],
+                        "body-sm": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "button": ["Manrope"],
+                        "h1": ["Manrope"]
+                    },
+                    fontSize: {
+                        "display-lg": ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "800" }],
+                        "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+                        "h2": ["24px", { lineHeight: "1.3", fontWeight: "700" }],
+                        "label-caps": ["12px", { lineHeight: "1.0", letterSpacing: "0.05em", fontWeight: "700" }],
+                        "h3": ["20px", { lineHeight: "1.4", fontWeight: "600" }],
+                        "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "button": ["15px", { lineHeight: "1.0", fontWeight: "600" }],
+                        "h1": ["32px", { lineHeight: "1.2", fontWeight: "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 sticky z-30 flex justify-between items-center w-full px-6 py-4 lg:pl-[320px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center gap-4">
+<button class="lg:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-manrope text-lg font-bold tracking-tighter text-blue-700 dark:text-blue-400">ITG Room Booking</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden shadow-sm">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="close up headshot of a professional young man in a well lit office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXloOV8uJq2zTa1oTZdaAZq3UcEVZvlRCNqbT21vK68oXM2fPC_S0KUBY1VjMmzSg_RVcj3KIrm8-EVMWw-AUnS7RqIZDx4r7_17UpGbsX7z1ITwIB5dAP0aijocrcKHai024lOyo7r-roCEn1jxGQxR4cKHg6mMuVoh77C4PyMGQNhOJKFjVF_-2PWjbYcqwEVhzZkvEUMLtPqDE7Riyr3sZRbNr3J7sarku6eQ-LsPawMB9rr-LvnAHQxwbY-vSE7cDLrwWx6dIZ"/>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer -->
+<nav class="hidden lg:flex flex-col fixed left-0 top-0 h-full z-40 w-72 border-r border-slate-200 dark:border-slate-800 shadow-[4px_0_24px_rgba(37,99,235,0.04)] bg-white dark:bg-slate-900">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800">
+<h2 class="text-xl font-bold bg-gradient-to-r from-blue-600 to-emerald-500 bg-clip-text text-transparent font-manrope tracking-tight">ITG Academic Portal</h2>
+<p class="font-body-sm text-body-sm text-slate-500 mt-1">Room Booking System</p>
+</div>
+<div class="flex-1 py-4 overflow-y-auto">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-blue-50 dark:hover:bg-blue-900/10 hover:text-blue-600 active:scale-95 transition-transform font-manrope font-semibold tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-blue-50 dark:hover:bg-blue-900/10 hover:text-blue-600 active:scale-95 transition-transform font-manrope font-semibold tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_add_on">calendar_add_on</span>
+<span>Book Room</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-blue-50 dark:hover:bg-blue-900/10 hover:text-blue-600 active:scale-95 transition-transform font-manrope font-semibold tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>My History</span>
+</a>
+</li>
+<!-- Active Item: Room Management -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-blue-50 to-emerald-50 dark:from-blue-900/20 dark:to-emerald-900/20 text-blue-700 dark:text-emerald-500 border-r-4 border-blue-600 active:scale-95 transition-transform font-manrope font-semibold tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="meeting_room">meeting_room</span>
+<span>Room Management</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-blue-50 dark:hover:bg-blue-900/10 hover:text-blue-600 active:scale-95 transition-transform font-manrope font-semibold tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span>Approvals</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-blue-50 dark:hover:bg-blue-900/10 hover:text-blue-600 active:scale-95 transition-transform font-manrope font-semibold tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="lg:pl-[288px] min-h-screen pb-24 lg:pb-8">
+<div class="max-w-container-max mx-auto p-margin-page space-y-stack-lg">
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div>
+<h2 class="font-h1 text-h1 text-on-background tracking-tight">Manage Rooms</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Configure and oversee institutional space inventory.</p>
+</div>
+<button class="flex items-center justify-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/90 text-on-secondary rounded-xl font-button text-button shadow-[0_4px_14px_0_rgba(16,185,129,0.39)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.23)] hover:-translate-y-0.5 transition-all duration-200">
+<span class="material-symbols-outlined text-[18px]" data-icon="add" style="font-variation-settings: 'wght' 600;">add</span>
+                    Add New Room
+                </button>
+</div>
+<!-- Content Area - Bento Grid approach for table wrapper to look premium -->
+<div class="bg-surface rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-outline-variant/30 overflow-hidden relative">
+<!-- Table Filters / Search Bar within Card Header -->
+<div class="p-stack-md border-b border-outline-variant/30 bg-surface-bright flex flex-col md:flex-row gap-4 justify-between items-center">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface rounded-lg border border-outline-variant/50 focus:border-primary focus:ring-2 focus:ring-primary-container/50 outline-none transition-all font-body-sm text-body-sm text-on-surface" placeholder="Search rooms by name or code..." type="text"/>
+</div>
+<div class="flex gap-2 w-full md:w-auto">
+<button class="px-4 py-2 bg-surface border border-outline-variant/50 rounded-lg font-button text-button text-on-surface-variant flex items-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+                            Filter
+                        </button>
+</div>
+</div>
+<!-- Responsive Table Wrapper -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/40">
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider w-1/4">Room Details</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider w-1/6">Type</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider w-1/6">Capacity</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider w-1/6">Status</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider text-right w-1/6">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Row 1 -->
+<tr class="group even:bg-surface-bright odd:bg-surface hover:bg-secondary-fixed/50 transition-colors duration-150">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed-dim flex items-center justify-center text-primary-fixed-variant">
+<span class="material-symbols-outlined" data-icon="meeting_room">meeting_room</span>
+</div>
+<div>
+<p class="font-h3 text-[16px] text-on-surface">Aula Utama</p>
+<p class="font-body-sm text-body-sm text-outline">Gedung A - Lt. 1</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Auditorium</span>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="group">group</span>
+<span class="font-body-sm text-body-sm">250 Seats</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                        Active
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-outline hover:text-primary hover:bg-primary-container/20 rounded-lg transition-colors" title="Edit Room">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 text-outline hover:text-error hover:bg-error-container/40 rounded-lg transition-colors" title="Delete Room">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group even:bg-surface-bright odd:bg-surface hover:bg-secondary-fixed/50 transition-colors duration-150">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed-dim flex items-center justify-center text-secondary-fixed-variant">
+<span class="material-symbols-outlined" data-icon="computer">computer</span>
+</div>
+<div>
+<p class="font-h3 text-[16px] text-on-surface">Lab Komputer Dasar</p>
+<p class="font-body-sm text-body-sm text-outline">Gedung B - R. 201</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Laboratory</span>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="group">group</span>
+<span class="font-body-sm text-body-sm">40 Seats</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                        Active
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-outline hover:text-primary hover:bg-primary-container/20 rounded-lg transition-colors" title="Edit Room">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 text-outline hover:text-error hover:bg-error-container/40 rounded-lg transition-colors" title="Delete Room">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group even:bg-surface-bright odd:bg-surface hover:bg-secondary-fixed/50 transition-colors duration-150">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-variant flex items-center justify-center text-outline">
+<span class="material-symbols-outlined" data-icon="chair_alt">chair_alt</span>
+</div>
+<div>
+<p class="font-h3 text-[16px] text-on-surface text-on-surface-variant/70">Ruang Rapat Senat</p>
+<p class="font-body-sm text-body-sm text-outline">Gedung Rektorat - Lt. 2</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Meeting Room</span>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="group">group</span>
+<span class="font-body-sm text-body-sm">20 Seats</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-error-container text-on-error-container border border-error-container/50">
+                                        Maintenance
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-outline hover:text-primary hover:bg-primary-container/20 rounded-lg transition-colors" title="Edit Room">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 text-outline hover:text-error hover:bg-error-container/40 rounded-lg transition-colors" title="Delete Room">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group even:bg-surface-bright odd:bg-surface hover:bg-secondary-fixed/50 transition-colors duration-150">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed-dim flex items-center justify-center text-primary-fixed-variant">
+<span class="material-symbols-outlined" data-icon="meeting_room">meeting_room</span>
+</div>
+<div>
+<p class="font-h3 text-[16px] text-on-surface">Kelas Teori 301</p>
+<p class="font-body-sm text-body-sm text-outline">Gedung C - Lt. 3</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Classroom</span>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="group">group</span>
+<span class="font-body-sm text-body-sm">60 Seats</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                        Active
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-outline hover:text-primary hover:bg-primary-container/20 rounded-lg transition-colors" title="Edit Room">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 text-outline hover:text-error hover:bg-error-container/40 rounded-lg transition-colors" title="Delete Room">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-4 border-t border-outline-variant/30 bg-surface-bright flex items-center justify-between">
+<p class="font-body-sm text-body-sm text-outline">Showing 1 to 4 of 24 entries</p>
+<div class="flex gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant/50 text-outline hover:bg-surface-container disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-button text-button">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant/50 text-on-surface-variant hover:bg-surface-container font-button text-button">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant/50 text-on-surface-variant hover:bg-surface-container font-button text-button">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant/50 text-outline hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl rounded-t-2xl border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_20px_rgba(37,99,235,0.1)]">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 active:bg-slate-100 dark:active:bg-slate-800 scale-110 transition-transform duration-200 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 active:bg-slate-100 dark:active:bg-slate-800 scale-110 transition-transform duration-200 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="add_circle">add_circle</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Book</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 active:bg-slate-100 dark:active:bg-slate-800 scale-110 transition-transform duration-200 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="receipt_long">receipt_long</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">History</span>
+</a>
+<!-- Assuming Admin Profile access might link to management tasks, keeping it generic inactive as this is a specific management view -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 active:bg-slate-100 dark:active:bg-slate-800 scale-110 transition-transform duration-200 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Profile</span>
+</a>
+</nav>
+</body></html>

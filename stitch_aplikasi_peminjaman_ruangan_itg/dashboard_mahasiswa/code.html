@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ITG Room Booking - Dashboard</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#2563eb",
+                      "surface-container": "#e7eeff",
+                      "primary": "#2563eb",
+                      "outline-variant": "#c3c6d7",
+                      "on-primary-fixed": "#00174b",
+                      "surface-bright": "#f9f9ff",
+                      "error-container": "#ffdad6",
+                      "on-background": "#111c2d",
+                      "on-surface-variant": "#434655",
+                      "on-tertiary": "#ffffff",
+                      "surface": "#f9f9ff",
+                      "secondary-fixed": "#d1fae5",
+                      "on-secondary-fixed": "#064e3b",
+                      "on-primary": "#ffffff",
+                      "surface-dim": "#cfdaf2",
+                      "on-secondary-container": "#064e3b",
+                      "on-surface": "#111c2d",
+                      "on-secondary-fixed-variant": "#047857",
+                      "tertiary-container": "#696d74",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#43474d",
+                      "on-tertiary-container": "#edf0f8",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#a7f3d0",
+                      "background": "#f9f9ff",
+                      "on-error-container": "#93000a",
+                      "surface-container-high": "#dee8ff",
+                      "surface-container-low": "#f0f3ff",
+                      "on-primary-container": "#eeefff",
+                      "secondary": "#10b981",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-variant": "#d8e3fb",
+                      "tertiary-fixed-dim": "#c3c6ce",
+                      "primary-container": "#dbeafe",
+                      "outline": "#737686",
+                      "tertiary-fixed": "#dfe2ea",
+                      "inverse-surface": "#263143",
+                      "inverse-primary": "#bfdbfe",
+                      "surface-container-highest": "#d8e3fb",
+                      "inverse-on-surface": "#ecf1ff",
+                      "secondary-container": "#d1fae5",
+                      "tertiary": "#51555b",
+                      "on-primary-fixed-variant": "#1d4ed8",
+                      "on-tertiary-fixed": "#181c21",
+                      "primary-fixed": "#dbeafe",
+                      "primary-fixed-dim": "#bfdbfe"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "stack-lg": "48px",
+                      "container-max": "1280px",
+                      "stack-sm": "12px",
+                      "margin-page": "32px",
+                      "gutter": "24px",
+                      "stack-xs": "4px",
+                      "stack-md": "24px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Manrope"
+                      ],
+                      "body-sm": [
+                              "Manrope"
+                      ],
+                      "h2": [
+                              "Manrope"
+                      ],
+                      "label-caps": [
+                              "Manrope"
+                      ],
+                      "h3": [
+                              "Manrope"
+                      ],
+                      "body-md": [
+                              "Manrope"
+                      ],
+                      "button": [
+                              "Manrope"
+                      ],
+                      "h1": [
+                              "Manrope"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "h2": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "h3": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "button": [
+                              "15px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h1": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f9f9ff; /* bg-background */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen antialiased">
+<!-- TopAppBar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md text-blue-600 dark:text-green-400 font-manrope text-lg font-bold docked full-width top-0 sticky z-30 border-b border-slate-200 dark:border-slate-800 shadow-sm flex justify-between items-center w-full px-6 py-4 lg:pl-80">
+<div class="flex items-center gap-stack-sm">
+<button aria-label="Menu" class="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 hover:shadow-lg transition-all duration-300 lg:hidden">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<span class="text-lg font-black tracking-tighter text-blue-700 dark:text-blue-400 font-h2 text-h2">ITG Room Booking</span>
+</div>
+<div class="flex items-center gap-stack-sm">
+<button class="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 hover:shadow-lg transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant hover:shadow-lg transition-all duration-300 cursor-pointer flex items-center justify-center">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="close up portrait of young professional male with neutral expression against plain background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4YCArhEgtin-Zmklfb2Zo7l195vf3DCsFEwzcDRQk6lPF0xA8jklLoCeKWXiLkV6Hh-G4_VTc50B2NgejDzFZXpevrjypuSFQo1vi1ytFxfMAIByvQnRyCVhyyMKkC03KkIAZCSi1gICRdpKWJAltOfA-Aq70L_dCVk7C_80rW_uiMhrYA4GakHH0vDLij6aTqRobkLPBeRIzf5ZxYwBpXmaP9IjkCpr9hpnIkmACU94UubkIMmMBg5O9zTmTnKCmzNCgMMa1SKZP"/>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer (Desktop) -->
+<nav class="bg-white dark:bg-slate-900 text-blue-600 dark:text-green-400 font-manrope font-semibold tracking-tight w-72 h-screen border-r border-slate-200 dark:border-slate-800 shadow-[4px_0_24px_rgba(37,99,235,0.04)] hidden lg:flex flex-col fixed left-0 top-0 h-full z-40">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center gap-stack-sm">
+<div class="w-12 h-12 rounded-lg bg-primary text-on-primary flex items-center justify-center font-h2 text-h2 shadow-md">
+<span class="material-symbols-outlined" data-icon="school" data-weight="fill">school</span>
+</div>
+<div>
+<h2 class="text-xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent font-h3 text-h3 leading-tight">ITG Academic Portal</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Room Booking System</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="flex flex-col gap-1 px-3">
+<!-- Dashboard (Active) -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 text-blue-700 dark:text-green-300 border-r-4 border-blue-600 rounded-l-lg hover:bg-blue-50 dark:hover:bg-blue-900/10 hover:text-blue-600 transition-all duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-button text-button">Dashboard</span>
+</a>
+</li>
+<!-- Book Room -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/10 hover:text-blue-600 transition-all duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_add_on">calendar_add_on</span>
+<span class="font-button text-button">Book Room</span>
+</a>
+</li>
+<!-- My History -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/10 hover:text-blue-600 transition-all duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-button text-button">My History</span>
+</a>
+</li>
+<!-- Room Management -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/10 hover:text-blue-600 transition-all duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="meeting_room">meeting_room</span>
+<span class="font-button text-button">Room Management</span>
+</a>
+</li>
+<!-- Approvals -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/10 hover:text-blue-600 transition-all duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-button text-button">Approvals</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/10 hover:text-blue-600 transition-all duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-button text-button">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="lg:pl-72 pb-24 lg:pb-8 pt-6 px-4 md:px-margin-page max-w-container-max mx-auto w-full flex flex-col gap-stack-lg">
+<!-- Welcome & Action Row -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-md">
+<div>
+<h1 class="font-h1 text-h1 text-on-background mb-1">Welcome back, Student</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Here's an overview of your room booking activities.</p>
+</div>
+<button class="bg-gradient-to-r from-primary to-secondary text-on-primary font-button text-button px-6 py-3 rounded-lg shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.23)] hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                Book Now
+            </button>
+</section>
+<!-- Stats Grid (Bento Style) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Total Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-[0_2px_8px_rgba(37,99,235,0.04)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.08)] hover:border-primary/30 transition-all duration-300 flex flex-col relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-surface-container rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex items-center justify-between mb-4 relative z-10">
+<h3 class="font-h3 text-h3 text-on-surface">Total Bookings</h3>
+<div class="w-10 h-10 rounded-full bg-surface-container text-primary flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+</div>
+</div>
+<div class="mt-auto relative z-10">
+<span class="font-display-lg text-display-lg text-primary">12</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-1">This semester</span>
+</div>
+</div>
+<!-- Approved Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-[0_2px_8px_rgba(37,99,235,0.04)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.08)] hover:border-primary/30 transition-all duration-300 flex flex-col relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary-fixed/50 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex items-center justify-between mb-4 relative z-10">
+<h3 class="font-h3 text-h3 text-on-surface">Approved</h3>
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+<div class="mt-auto relative z-10">
+<span class="font-display-lg text-display-lg text-on-secondary-fixed-variant">8</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-1">Ready for use</span>
+</div>
+</div>
+<!-- Pending Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-[0_2px_8px_rgba(37,99,235,0.04)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.08)] hover:border-primary/30 transition-all duration-300 flex flex-col relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-surface-variant rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex items-center justify-between mb-4 relative z-10">
+<h3 class="font-h3 text-h3 text-on-surface">Pending Review</h3>
+<div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="hourglass_empty">hourglass_empty</span>
+</div>
+</div>
+<div class="mt-auto relative z-10">
+<span class="font-display-lg text-display-lg text-on-surface">3</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-1">Awaiting admin action</span>
+</div>
+</div>
+</section>
+<!-- Recent History Table -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_2px_8px_rgba(37,99,235,0.04)] overflow-hidden flex flex-col">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-white">
+<h2 class="font-h2 text-h2 text-on-surface">Recent Booking History</h2>
+<button class="font-button text-button text-primary hover:text-primary-container transition-colors flex items-center gap-1">
+                    View All
+                    <span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">Room</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">Date &amp; Time</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">Purpose</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">Status</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface">
+<!-- Row 1: Approved -->
+<tr class="border-b border-outline-variant/50 hover:bg-surface-container-lowest transition-colors bg-white">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="meeting_room">meeting_room</span>
+</div>
+<div>
+<p class="font-h3 text-h3 text-[16px] leading-tight text-on-surface">Auditorium A</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Capacity: 150</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">
+                                Oct 24, 2023<br/>
+<span class="text-sm">09:00 AM - 12:00 PM</span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">Guest Lecture Series</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-button text-[12px] font-bold">
+                                    Approved
+                                </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button aria-label="More options" class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Pending (Zebra Stripe) -->
+<tr class="border-b border-outline-variant/50 hover:bg-surface-container-lowest transition-colors bg-surface-container-low/30">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="computer">computer</span>
+</div>
+<div>
+<p class="font-h3 text-h3 text-[16px] leading-tight text-on-surface">Lab Komputer 3</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Capacity: 40</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">
+                                Oct 26, 2023<br/>
+<span class="text-sm">01:00 PM - 04:00 PM</span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">Project Development</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-variant text-on-surface-variant font-button text-[12px] font-bold">
+                                    Pending
+                                </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button aria-label="More options" class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Rejected -->
+<tr class="hover:bg-surface-container-lowest transition-colors bg-white">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="co_present">co_present</span>
+</div>
+<div>
+<p class="font-h3 text-h3 text-[16px] leading-tight text-on-surface">Ruang Rapat 1</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Capacity: 20</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">
+                                Oct 20, 2023<br/>
+<span class="text-sm">10:00 AM - 11:30 AM</span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">Student Org Meeting</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-error-container text-on-error-container font-button text-[12px] font-bold">
+                                    Rejected
+                                </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button aria-label="More options" class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl text-blue-600 dark:text-green-500 text-[10px] font-bold uppercase tracking-widest fixed bottom-0 w-full rounded-t-2xl border-t border-slate-200 dark:border-slate-800 border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_20px_rgba(37,99,235,0.1)] lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl px-4 py-1 active:bg-slate-100 dark:active:bg-slate-800 scale-110 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span>Home</span>
+</a>
+<!-- Book -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 active:bg-slate-100 dark:active:bg-slate-800 scale-110 transition-transform duration-200 px-4 py-1" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="add_circle">add_circle</span>
+<span>Book</span>
+</a>
+<!-- History -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 active:bg-slate-100 dark:active:bg-slate-800 scale-110 transition-transform duration-200 px-4 py-1" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="receipt_long">receipt_long</span>
+<span>History</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 active:bg-slate-100 dark:active:bg-slate-800 scale-110 transition-transform duration-200 px-4 py-1" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span>Profile</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,88 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "binary"
+  output     = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(cuid())
+  name      String?
+  email     String?   @unique
+  password  String
+  role      Role      @default(MAHASISWA)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  bookings  Booking[]
+}
+
+model Room {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  capacity    Int
+  type        String
+  status      String    @default("AVAILABLE")
+  location    String?
+  image       String?
+  amenities   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  bookings    Booking[]
+  classSchedules ClassSchedule[]
+}
+
+model Booking {
+  id        String        @id @default(cuid())
+  userId    String
+  roomId    String
+  startTime DateTime
+  endTime   DateTime
+  purpose   String
+  status    BookingStatus @default(PENDING_1)
+  notes       String?
+  documentUrl String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  pic         String?
+  room        Room          @relation(fields: [roomId], references: [id])
+  user        User          @relation(fields: [userId], references: [id])
+}
+
+model ClassSchedule {
+  id           String   @id @default(cuid())
+  roomId       String
+  dayOfWeek    Int      // 1 = Monday, 2 = Tuesday, etc.
+  startTime    String   // "08:00"
+  endTime      String   // "10:00"
+  courseName   String
+  lecturerName String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  room         Room     @relation(fields: [roomId], references: [id])
+}
+
+enum Role {
+  MAHASISWA
+  DOSEN
+  BKKH
+  SARPAS
+  KAJUR
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  PENDING_1
+  PENDING_2
+  PENDING_3
+  PROCESSED
+  APPROVED
+  REJECTED
+  COMPLETED
+  CANCELLED
+}

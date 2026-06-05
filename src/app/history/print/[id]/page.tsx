@@ -1,0 +1,204 @@
+import React from "react";
+import { prisma } from "@/lib/prisma";
+import { notFound } from "next/navigation";
+import { 
+  MapPin, 
+  Calendar, 
+  Users,
+  ShieldCheck,
+  QrCode,
+  CheckCircle2,
+  FileCheck,
+  Settings,
+  BadgeCheck,
+  XCircle,
+  Clock
+} from "lucide-react";
+
+export default async function PrintTicketPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const booking = await prisma.booking.findUnique({
+    where: { id },
+    include: { 
+      room: true,
+      user: true 
+    }
+  });
+
+  if (!booking || booking.status !== "APPROVED") {
+    notFound();
+  }
+
+  const start = new Date(booking.startTime);
+  const end = new Date(booking.endTime);
+  const dateStr = start.toLocaleDateString("id-ID", { 
+    weekday: 'long', 
+    day: 'numeric', 
+    month: 'long', 
+    year: 'numeric' 
+  });
+  const timeStr = `${start.getHours().toString().padStart(2, '0')}:${start.getMinutes().toString().padStart(2, '0')} - ${end.getHours().toString().padStart(2, '0')}:${end.getMinutes().toString().padStart(2, '0')} WIB`;
+
+  const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+  const verificationUrl = `${baseUrl}/history/print/${booking.id}`;
+
+  const isBkkhVerified = ["PENDING_2", "PENDING_3", "APPROVED"].includes(booking.status);
+  const isSarpasVerified = ["PENDING_3", "APPROVED"].includes(booking.status);
+  const isKajurVerified = booking.status === "APPROVED";
+  const isRejected = booking.status === "REJECTED";
+
+  const todayStr = new Date().toLocaleDateString("id-ID", {
+    day: 'numeric', month: 'long', year: 'numeric'
+  });
+
+  return (
+    <div className="min-h-screen bg-white text-black font-serif">
+      <div className="max-w-4xl mx-auto p-12 bg-white">
+        {/* Kop Surat */}
+        <div className="flex items-center justify-between border-b-[3px] border-black pb-6 mb-1 border-double">
+          <div className="flex items-center justify-center w-24 h-24">
+            <img src="/logo-itg.png" alt="ITG Logo" className="w-20 h-20 object-contain grayscale" />
+          </div>
+          <div className="text-center flex-1 px-4 space-y-1">
+            <h1 className="text-2xl font-bold uppercase tracking-wide">Institut Teknologi Garut</h1>
+            <h2 className="text-lg font-bold">Biro Administrasi Akademik & Kemahasiswaan</h2>
+            <p className="text-sm">Jl. Mayor Syamsu No. 1, Jayaraga, Tarogong Kidul, Kabupaten Garut, Jawa Barat 44151</p>
+            <p className="text-sm">Website: www.itg.ac.id | Email: info@itg.ac.id</p>
+          </div>
+          <div className="w-24 h-24"></div> {/* Spacer to balance logo */}
+        </div>
+        <div className="border-b border-black mb-8"></div>
+        
+        {/* Nomor & Tanggal */}
+        <div className="flex justify-between mb-10 text-sm">
+          <div>
+            <table className="w-full">
+              <tbody>
+                <tr><td className="w-20 py-0.5">Nomor</td><td>: {booking.id.toUpperCase().substring(0, 8)}/ITG/PR/{start.getFullYear()}</td></tr>
+                <tr><td className="py-0.5">Lampiran</td><td>: -</td></tr>
+                <tr><td className="py-0.5">Perihal</td><td>: <strong>Persetujuan Peminjaman Ruangan</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="text-right">
+            <p>Garut, {todayStr}</p>
+          </div>
+        </div>
+
+        {/* Isi Surat */}
+        <div className="space-y-4 text-justify leading-relaxed text-sm">
+          <p>Kepada Yth.,</p>
+          <p className="font-bold">{booking.user.name}</p>
+          <p>di Tempat</p>
+          
+          <br />
+          <p>Dengan hormat,</p>
+          <p>
+            Menindaklanjuti permohonan peminjaman ruangan yang Saudara/i ajukan melalui Sistem Informasi Peminjaman Ruangan (SIPERU) Institut Teknologi Garut, bersama surat ini kami sampaikan bahwa permohonan tersebut <strong>DISETUJUI</strong> dengan rincian kegiatan sebagai berikut:
+          </p>
+          
+          <table className="w-full my-6 ml-8">
+            <tbody>
+              <tr><td className="w-48 py-1.5">Nama Peminjam</td><td className="w-4">:</td><td className="font-bold">{booking.user.name}</td></tr>
+              <tr><td className="py-1.5">NIM / NIDN</td><td>:</td><td>{booking.user.email.split('@')[0]}</td></tr>
+              <tr><td className="py-1.5">Ruangan</td><td>:</td><td className="font-bold">{booking.room.name} ({booking.room.location})</td></tr>
+              <tr><td className="py-1.5">Tanggal Pelaksanaan</td><td>:</td><td>{dateStr}</td></tr>
+              <tr><td className="py-1.5">Waktu</td><td>:</td><td>{timeStr}</td></tr>
+              <tr><td className="py-1.5">Keperluan / Agenda</td><td>:</td><td>{booking.purpose}</td></tr>
+              <tr><td className="py-1.5">Point of Contact</td><td>:</td><td>{booking.pic || booking.user.name}</td></tr>
+            </tbody>
+          </table>
+
+          <p>
+            Demikian surat persetujuan ini diterbitkan untuk dapat dipergunakan sebagaimana mestinya. Peminjam diwajibkan untuk menjaga kebersihan dan keutuhan fasilitas ruangan yang digunakan. Harap menunjukkan surat ini kepada petugas keamanan atau pengelola gedung sebelum menggunakan ruangan.
+          </p>
+          <p>
+            Atas perhatian dan kerja samanya, kami ucapkan terima kasih.
+          </p>
+        </div>
+
+        {/* Tanda Tangan */}
+        <div className="mt-16 flex justify-between text-sm text-center">
+          <div className="w-48">
+            <p>Mengetahui,</p>
+            <p className="font-bold">Bagian BKKH ITG</p>
+            <div className="relative h-16 flex items-center justify-center">
+               {/* Digital Stamp BKKH */}
+               <div className="absolute top-1/2 left-1/2 -translate-x-[60%] -translate-y-[40%] -rotate-12 border-[2px] border-indigo-600/40 rounded-full w-24 h-24 flex flex-col items-center justify-center pointer-events-none p-1 z-0">
+                  <div className="border border-indigo-600/40 rounded-full w-full h-full flex flex-col items-center justify-center">
+                    <span className="text-[6px] font-black uppercase text-indigo-700/60 tracking-widest">Institut Teknologi</span>
+                    <span className="text-[10px] font-black uppercase text-indigo-700/60">GARUT</span>
+                    <span className="text-[5px] font-bold uppercase text-indigo-700/60 border-t border-indigo-600/40 pt-0.5 mt-0.5 w-3/4 text-center">BKKH</span>
+                  </div>
+               </div>
+               <span className="text-2xl italic text-blue-800/80 -rotate-6 select-none font-serif tracking-widest relative z-10">
+                  Encep J.H.
+               </span>
+            </div>
+            <p className="font-bold underline">Encep Jianul Hayat, S.T., M.T.</p>
+            <p className="text-[10px]">NIP. -</p>
+          </div>
+
+          <div className="w-48">
+            <p>Mengetahui,</p>
+            <p className="font-bold">Bagian SARPAS ITG</p>
+            <div className="relative h-16 flex items-center justify-center">
+               {/* Digital Stamp SARPAS */}
+               <div className="absolute top-1/2 left-1/2 -translate-x-[40%] -translate-y-[50%] rotate-6 border-[2px] border-indigo-600/40 rounded-full w-24 h-24 flex flex-col items-center justify-center pointer-events-none p-1 z-0">
+                  <div className="border border-indigo-600/40 rounded-full w-full h-full flex flex-col items-center justify-center">
+                    <span className="text-[6px] font-black uppercase text-indigo-700/60 tracking-widest">Institut Teknologi</span>
+                    <span className="text-[10px] font-black uppercase text-indigo-700/60">GARUT</span>
+                    <span className="text-[5px] font-bold uppercase text-indigo-700/60 border-t border-indigo-600/40 pt-0.5 mt-0.5 w-3/4 text-center">SARPAS</span>
+                  </div>
+               </div>
+               <span className="text-3xl italic text-blue-800/80 -rotate-12 select-none font-serif tracking-tighter relative z-10">
+                  Ganjar J.J.
+               </span>
+            </div>
+            <p className="font-bold underline">Ganjar Jojon Johari, S.T., M.T.</p>
+            <p className="text-[10px]">NIP. -</p>
+          </div>
+
+          <div className="w-48">
+            <p>Menyetujui,</p>
+            <p className="font-bold">Pengelola Ruangan (BAAK)</p>
+            <div className="relative h-16 flex items-center justify-center">
+               {/* Digital Stamp BAAK */}
+               <div className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[45%] -rotate-3 border-[2px] border-indigo-600/40 rounded-full w-24 h-24 flex flex-col items-center justify-center pointer-events-none p-1 z-0">
+                  <div className="border border-indigo-600/40 rounded-full w-full h-full flex flex-col items-center justify-center">
+                    <span className="text-[6px] font-black uppercase text-indigo-700/60 tracking-widest">Institut Teknologi</span>
+                    <span className="text-[10px] font-black uppercase text-indigo-700/60">GARUT</span>
+                    <span className="text-[5px] font-bold uppercase text-indigo-700/60 border-t border-indigo-600/40 pt-0.5 mt-0.5 w-3/4 text-center">BAAK</span>
+                  </div>
+               </div>
+               <span className="text-2xl italic text-blue-800/80 rotate-3 select-none font-serif tracking-wider relative z-10">
+                  Yanti Y.
+               </span>
+            </div>
+            <p className="font-bold underline">Ir. Yanti Yulianti, M.M.</p>
+            <p className="text-[10px]">NIP. -</p>
+          </div>
+        </div>
+
+        {/* QR Code Verifikasi */}
+        <div className="mt-12 flex items-center gap-4 border border-slate-200 p-4 w-fit">
+           <div className="p-1 border border-slate-300 bg-white">
+             <img 
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=${encodeURIComponent(verificationUrl)}`} 
+                alt="QR Code Verification"
+                className="w-[60px] h-[60px] grayscale"
+             />
+           </div>
+           <div>
+             <p className="text-[11px] font-bold uppercase tracking-wider">Dokumen Digital Sah</p>
+             <p className="text-[10px] italic text-slate-600">Scan QR Code ini untuk memverifikasi keaslian</p>
+             <p className="text-[10px] italic text-slate-600">dokumen secara langsung di Sistem ITG.</p>
+           </div>
+        </div>
+      </div>
+
+      {/* Auto-print Script */}
+      <script dangerouslySetInnerHTML={{ __html: "window.print();" }} />
+    </div>
+  );
+}
