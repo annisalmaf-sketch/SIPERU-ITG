@@ -42,10 +42,7 @@ export default async function PrintTicketPage({ params }: { params: Promise<{ id
   const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
   const verificationUrl = `${baseUrl}/history/print/${booking.id}`;
 
-  const isBkkhVerified = ["PENDING_2", "PENDING_3", "APPROVED"].includes(booking.status);
-  const isSarpasVerified = ["PENDING_3", "APPROVED"].includes(booking.status);
-  const isKajurVerified = booking.status === "APPROVED";
-  const isRejected = booking.status === "REJECTED";
+
 
   const todayStr = new Date().toLocaleDateString("id-ID", {
     day: 'numeric', month: 'long', year: 'numeric'
