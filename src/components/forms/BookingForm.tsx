@@ -21,6 +21,7 @@ interface Room {
   id: string;
   name: string;
   capacity: number;
+  location?: string | null;
 }
 
 export function BookingForm({ rooms }: { rooms: Room[] }) {

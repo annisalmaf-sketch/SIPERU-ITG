@@ -97,7 +97,7 @@ export default async function PrintTicketPage({ params }: { params: Promise<{ id
           <table className="w-full my-6 ml-8">
             <tbody>
               <tr><td className="w-48 py-1.5">Nama Peminjam</td><td className="w-4">:</td><td className="font-bold">{booking.user.name}</td></tr>
-              <tr><td className="py-1.5">NIM / NIDN</td><td>:</td><td>{booking.user.email.split('@')[0]}</td></tr>
+              <tr><td className="py-1.5">NIM / NIDN</td><td>:</td><td>{booking.user.email?.split('@')[0] || '-'}</td></tr>
               <tr><td className="py-1.5">Ruangan</td><td>:</td><td className="font-bold">{booking.room.name} ({booking.room.location})</td></tr>
               <tr><td className="py-1.5">Tanggal Pelaksanaan</td><td>:</td><td>{dateStr}</td></tr>
               <tr><td className="py-1.5">Waktu</td><td>:</td><td>{timeStr}</td></tr>

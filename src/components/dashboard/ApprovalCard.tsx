@@ -28,6 +28,7 @@ interface ApprovalCardProps {
     documentUrl?: string | null;
     status: string;
     notes?: string | null;
+    pic?: string | null;
   };
   kajurLevel?: number;
 }
@@ -221,7 +222,7 @@ export function ApprovalCard({ booking, kajurLevel }: ApprovalCardProps) {
                   {booking.status === "PENDING_3" && "Menunggu konfirmasi Pengelola Ruangan."}
                   {booking.status === "APPROVED" && "Menunggu acara selesai."}
                 </p>
-                {booking.status === "APPROVED" || (booking.status.startsWith("PENDING_") && parseInt(booking.status.split("_")[1]) > kajurLevel) ? (
+                {booking.status === "APPROVED" || (booking.status.startsWith("PENDING_") && parseInt(booking.status.split("_")[1]) > (kajurLevel ?? 0)) ? (
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20 z-0 rotate-12">
                      <div className="border-4 border-green-600 rounded-full w-40 h-40 flex flex-col items-center justify-center text-green-600 font-black">
                        <Stamp size={48} className="mb-2" />

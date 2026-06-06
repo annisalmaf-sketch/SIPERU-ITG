@@ -16,7 +16,7 @@ import { toast } from "sonner";
 interface Room {
   id?: string;
   name: string;
-  location: string;
+  location: string | null;
   capacity: number;
   type: string;
 }
