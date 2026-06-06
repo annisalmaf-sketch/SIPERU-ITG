@@ -154,8 +154,7 @@ export default async function HistoryPage() {
                         {item.documentUrl && (
                           <a 
                             href={item.documentUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
+                            download="Lampiran_Surat.pdf"
                             className="mt-2 inline-flex items-center gap-1.5 text-[9px] font-black text-primary uppercase tracking-widest hover:underline"
                           >
                             <FileText size={12} />

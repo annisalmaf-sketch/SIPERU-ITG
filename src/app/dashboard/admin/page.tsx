@@ -170,8 +170,7 @@ export default async function AdminDashboard() {
                               {booking.documentUrl && (
                                 <a 
                                   href={booking.documentUrl} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
+                                  download="Lampiran_Surat.pdf"
                                   className="p-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-primary transition-colors"
                                   title="View Attachment"
                                 >

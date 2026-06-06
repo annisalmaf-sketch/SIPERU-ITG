@@ -177,8 +177,7 @@ export default async function ReportsPage({ searchParams }: { searchParams: any 
                                       {(b as any).documentUrl && (
                                         <a 
                                           href={(b as any).documentUrl} 
-                                          target="_blank" 
-                                          rel="noopener noreferrer"
+                                          download="Lampiran_Surat.pdf"
                                           className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-primary transition-colors"
                                           title="View Attachment"
                                         >

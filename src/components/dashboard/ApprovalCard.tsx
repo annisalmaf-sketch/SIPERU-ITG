@@ -130,8 +130,7 @@ export function ApprovalCard({ booking, kajurLevel }: ApprovalCardProps) {
             <div className="pt-2">
               <a 
                 href={booking.documentUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
+                download="Lampiran_Surat.pdf"
                 className="inline-flex items-center gap-2 text-[10px] font-black text-primary uppercase tracking-[0.15em] bg-primary/5 hover:bg-primary/10 px-4 py-2 rounded-xl transition-all"
               >
                 <FileText size={14} />
