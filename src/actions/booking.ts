@@ -77,13 +77,10 @@ export async function createBooking(formData: FormData) {
     const bytes = await documentFile.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Create a unique filename
-    const filename = `${Date.now()}-${documentFile.name.replace(/\s+/g, "-")}`;
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
-    const filePath = path.join(uploadDir, filename);
-
-    await fs.writeFile(filePath, buffer);
-    documentUrl = `/uploads/${filename}`;
+    // Convert to Base64 to bypass Vercel's read-only file system limitation
+    const base64String = buffer.toString("base64");
+    const mimeType = documentFile.type || "application/pdf";
+    documentUrl = `data:${mimeType};base64,${base64String}`;
   }
 
   await prisma.booking.create({
