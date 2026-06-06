@@ -109,91 +109,119 @@ export default async function PrintTicketPage({ params }: { params: Promise<{ id
             </tbody>
           </table>
 
-          <p>
-            Demikian surat persetujuan ini diterbitkan untuk dapat dipergunakan sebagaimana mestinya. Peminjam diwajibkan untuk menjaga kebersihan dan keutuhan fasilitas ruangan yang digunakan. Harap menunjukkan surat ini kepada petugas keamanan atau pengelola gedung sebelum menggunakan ruangan.
-          </p>
-          <p>
-            Atas perhatian dan kerja samanya, kami ucapkan terima kasih.
-          </p>
         </div>
 
-        {/* Tanda Tangan */}
-        <div className="mt-16 flex justify-between text-sm text-center">
-          <div className="w-48">
-            <p>Mengetahui,</p>
-            <p className="font-bold">Bagian BKKH ITG</p>
-            <div className="relative h-16 flex items-center justify-center">
-               {/* Digital Stamp BKKH */}
-               <div className="absolute top-1/2 left-1/2 -translate-x-[60%] -translate-y-[40%] -rotate-12 border-[2px] border-indigo-600/40 rounded-full w-24 h-24 flex flex-col items-center justify-center pointer-events-none p-1 z-0">
-                  <div className="border border-indigo-600/40 rounded-full w-full h-full flex flex-col items-center justify-center">
-                    <span className="text-[6px] font-black uppercase text-indigo-700/60 tracking-widest">Institut Teknologi</span>
-                    <span className="text-[10px] font-black uppercase text-indigo-700/60">GARUT</span>
-                    <span className="text-[5px] font-bold uppercase text-indigo-700/60 border-t border-indigo-600/40 pt-0.5 mt-0.5 w-3/4 text-center">BKKH</span>
-                  </div>
-               </div>
-               <span className="text-2xl italic text-blue-800/80 -rotate-6 select-none font-serif tracking-widest relative z-10">
-                  Encep J.H.
-               </span>
-            </div>
-            <p className="font-bold underline">Encep Jianul Hayat, S.T., M.T.</p>
-            <p className="text-[10px]">NIP. -</p>
+        {/* Penutup, Tanda Tangan & QR Code (Unbreakable Block) */}
+        <div className="break-inside-avoid print:pt-20">
+          <div className="space-y-4 text-justify leading-relaxed text-sm">
+            <p>
+              Demikian surat persetujuan ini diterbitkan untuk dapat dipergunakan sebagaimana mestinya. Peminjam diwajibkan untuk menjaga kebersihan dan keutuhan fasilitas ruangan yang digunakan. Harap menunjukkan surat ini kepada petugas keamanan atau pengelola gedung sebelum menggunakan ruangan.
+            </p>
+            <p>
+              Atas perhatian dan kerja samanya, kami ucapkan terima kasih.
+            </p>
           </div>
 
-          <div className="w-48">
-            <p>Mengetahui,</p>
-            <p className="font-bold">Bagian SARPAS ITG</p>
-            <div className="relative h-16 flex items-center justify-center">
-               {/* Digital Stamp SARPAS */}
-               <div className="absolute top-1/2 left-1/2 -translate-x-[40%] -translate-y-[50%] rotate-6 border-[2px] border-indigo-600/40 rounded-full w-24 h-24 flex flex-col items-center justify-center pointer-events-none p-1 z-0">
-                  <div className="border border-indigo-600/40 rounded-full w-full h-full flex flex-col items-center justify-center">
-                    <span className="text-[6px] font-black uppercase text-indigo-700/60 tracking-widest">Institut Teknologi</span>
-                    <span className="text-[10px] font-black uppercase text-indigo-700/60">GARUT</span>
-                    <span className="text-[5px] font-bold uppercase text-indigo-700/60 border-t border-indigo-600/40 pt-0.5 mt-0.5 w-3/4 text-center">SARPAS</span>
-                  </div>
-               </div>
-               <span className="text-3xl italic text-blue-800/80 -rotate-12 select-none font-serif tracking-tighter relative z-10">
-                  Ganjar J.J.
-               </span>
-            </div>
-            <p className="font-bold underline">Ganjar Jojon Johari, S.T., M.T.</p>
-            <p className="text-[10px]">NIP. -</p>
+          {/* Tanda Tangan */}
+          <div className="mt-12 w-full">
+            <table className="w-full text-sm text-center border-collapse">
+              <tbody>
+                <tr>
+                  <td className="w-1/3 align-top pb-2">
+                    <p>Mengetahui,</p>
+                    <p className="font-bold">Bagian BKKH ITG</p>
+                  </td>
+                  <td className="w-1/3 align-top pb-2">
+                    <p>Mengetahui,</p>
+                    <p className="font-bold">Bagian SARPAS ITG</p>
+                  </td>
+                  <td className="w-1/3 align-top pb-2">
+                    <p>Menyetujui,</p>
+                    <p className="font-bold">Pengelola Ruangan (BAAK)</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="h-20 align-middle relative">
+                    <div className="flex items-center justify-center">
+                      {/* Digital Stamp BKKH */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-[60%] -translate-y-[40%] -rotate-12 border-[2px] border-indigo-600/40 rounded-full w-20 h-20 flex flex-col items-center justify-center pointer-events-none p-1 z-0">
+                          <div className="border border-indigo-600/40 rounded-full w-full h-full flex flex-col items-center justify-center">
+                            <span className="text-[5px] font-black uppercase text-indigo-700/60 tracking-widest">Institut Teknologi</span>
+                            <span className="text-[9px] font-black uppercase text-indigo-700/60">GARUT</span>
+                            <span className="text-[5px] font-bold uppercase text-indigo-700/60 border-t border-indigo-600/40 pt-0.5 mt-0.5 w-3/4 text-center">BKKH</span>
+                          </div>
+                      </div>
+                      <span className="text-xl italic text-blue-800/80 -rotate-6 select-none font-serif tracking-widest relative z-10">
+                          Encep J.H.
+                      </span>
+                    </div>
+                  </td>
+                  <td className="h-20 align-middle relative">
+                    <div className="flex items-center justify-center">
+                      {/* Digital Stamp SARPAS */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-[40%] -translate-y-[50%] rotate-6 border-[2px] border-indigo-600/40 rounded-full w-20 h-20 flex flex-col items-center justify-center pointer-events-none p-1 z-0">
+                          <div className="border border-indigo-600/40 rounded-full w-full h-full flex flex-col items-center justify-center">
+                            <span className="text-[5px] font-black uppercase text-indigo-700/60 tracking-widest">Institut Teknologi</span>
+                            <span className="text-[9px] font-black uppercase text-indigo-700/60">GARUT</span>
+                            <span className="text-[5px] font-bold uppercase text-indigo-700/60 border-t border-indigo-600/40 pt-0.5 mt-0.5 w-3/4 text-center">SARPAS</span>
+                          </div>
+                      </div>
+                      <span className="text-2xl italic text-blue-800/80 -rotate-12 select-none font-serif tracking-tighter relative z-10">
+                          Ganjar J.J.
+                      </span>
+                    </div>
+                  </td>
+                  <td className="h-20 align-middle relative">
+                    <div className="flex items-center justify-center">
+                      {/* Digital Stamp BAAK */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[45%] -rotate-3 border-[2px] border-indigo-600/40 rounded-full w-20 h-20 flex flex-col items-center justify-center pointer-events-none p-1 z-0">
+                          <div className="border border-indigo-600/40 rounded-full w-full h-full flex flex-col items-center justify-center">
+                            <span className="text-[5px] font-black uppercase text-indigo-700/60 tracking-widest">Institut Teknologi</span>
+                            <span className="text-[9px] font-black uppercase text-indigo-700/60">GARUT</span>
+                            <span className="text-[5px] font-bold uppercase text-indigo-700/60 border-t border-indigo-600/40 pt-0.5 mt-0.5 w-3/4 text-center">BAAK</span>
+                          </div>
+                      </div>
+                      <span className="text-xl italic text-blue-800/80 rotate-3 select-none font-serif tracking-wider relative z-10">
+                          Yanti Y.
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="align-bottom pt-4">
+                    <p className="font-bold underline">Encep Jianul Hayat, S.T., M.T.</p>
+                    <p className="text-[10px]">NIP. -</p>
+                  </td>
+                  <td className="align-bottom pt-4">
+                    <p className="font-bold underline">Ganjar Jojon Johari, S.T., M.T.</p>
+                    <p className="text-[10px]">NIP. -</p>
+                  </td>
+                  <td className="align-bottom pt-4">
+                    <p className="font-bold underline">Ir. Yanti Yulianti, M.M.</p>
+                    <p className="text-[10px]">NIP. -</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          <div className="w-48">
-            <p>Menyetujui,</p>
-            <p className="font-bold">Pengelola Ruangan (BAAK)</p>
-            <div className="relative h-16 flex items-center justify-center">
-               {/* Digital Stamp BAAK */}
-               <div className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[45%] -rotate-3 border-[2px] border-indigo-600/40 rounded-full w-24 h-24 flex flex-col items-center justify-center pointer-events-none p-1 z-0">
-                  <div className="border border-indigo-600/40 rounded-full w-full h-full flex flex-col items-center justify-center">
-                    <span className="text-[6px] font-black uppercase text-indigo-700/60 tracking-widest">Institut Teknologi</span>
-                    <span className="text-[10px] font-black uppercase text-indigo-700/60">GARUT</span>
-                    <span className="text-[5px] font-bold uppercase text-indigo-700/60 border-t border-indigo-600/40 pt-0.5 mt-0.5 w-3/4 text-center">BAAK</span>
-                  </div>
-               </div>
-               <span className="text-2xl italic text-blue-800/80 rotate-3 select-none font-serif tracking-wider relative z-10">
-                  Yanti Y.
-               </span>
-            </div>
-            <p className="font-bold underline">Ir. Yanti Yulianti, M.M.</p>
-            <p className="text-[10px]">NIP. -</p>
+          {/* QR Code Verifikasi */}
+          <div className="mt-12 flex items-center gap-5 border-t-2 border-b-2 border-slate-900 py-4 px-6 bg-slate-50/50 print:bg-transparent">
+             <div className="p-1.5 border-2 border-slate-900 bg-white">
+               <img 
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=55x55&data=${encodeURIComponent(verificationUrl)}`} 
+                  alt="QR Code Verification"
+                  className="w-[55px] h-[55px] grayscale"
+               />
+             </div>
+             <div className="flex-1">
+               <p className="text-sm font-black uppercase tracking-widest text-slate-900">Dokumen Digital Sah & Terverifikasi</p>
+               <p className="text-[11px] text-slate-700 leading-relaxed mt-1">
+                 Surat persetujuan peminjaman ruangan ini digenerate secara otomatis oleh Sistem Informasi Peminjaman Ruangan (SIPERU) ITG. 
+                 Scan QR Code di samping untuk memverifikasi keaslian dokumen secara langsung melalui sistem.
+               </p>
+             </div>
           </div>
-        </div>
-
-        {/* QR Code Verifikasi */}
-        <div className="mt-12 flex items-center gap-4 border border-slate-200 p-4 w-fit">
-           <div className="p-1 border border-slate-300 bg-white">
-             <img 
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=${encodeURIComponent(verificationUrl)}`} 
-                alt="QR Code Verification"
-                className="w-[60px] h-[60px] grayscale"
-             />
-           </div>
-           <div>
-             <p className="text-[11px] font-bold uppercase tracking-wider">Dokumen Digital Sah</p>
-             <p className="text-[10px] italic text-slate-600">Scan QR Code ini untuk memverifikasi keaslian</p>
-             <p className="text-[10px] italic text-slate-600">dokumen secara langsung di Sistem ITG.</p>
-           </div>
         </div>
       </div>
 

@@ -59,6 +59,43 @@ export async function createClassSchedule(data: {
   }
 }
 
+export async function updateClassSchedule(id: string, data: {
+  roomId: string;
+  dayOfWeek: number;
+  startTime: string;
+  endTime: string;
+  courseName: string;
+  lecturerName: string;
+}) {
+  try {
+    const session = await getServerSession(authOptions);
+    const role = (session?.user as any)?.role;
+
+    if (!session || (role !== "KAJUR" && role !== "ADMIN")) {
+      return { success: false, error: "Unauthorized" };
+    }
+
+    const schedule = await (prisma as any).classSchedule.update({
+      where: { id },
+      data: {
+        roomId: data.roomId,
+        dayOfWeek: Number(data.dayOfWeek),
+        startTime: data.startTime,
+        endTime: data.endTime,
+        courseName: data.courseName,
+        lecturerName: data.lecturerName,
+      },
+    });
+
+    revalidatePath("/dashboard/kajur/schedule");
+    revalidatePath("/calendar");
+    return { success: true, schedule };
+  } catch (error: any) {
+    console.error("Update class schedule error:", error);
+    return { success: false, error: error.message };
+  }
+}
+
 export async function deleteClassSchedule(id: string) {
   try {
     const session = await getServerSession(authOptions);
