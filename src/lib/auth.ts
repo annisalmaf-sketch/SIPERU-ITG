@@ -7,6 +7,7 @@ console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
 console.log("NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET ? "DEFINED" : "UNDEFINED");
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET || "ITG_BOOKING_SECRET_KEY_123_FALLBACK_SUPER_SECRET",
   session: {
     strategy: "jwt",
   },
