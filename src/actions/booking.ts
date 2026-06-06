@@ -105,7 +105,7 @@ export async function updateBookingStatus(bookingId: string, status: "APPROVED" 
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user || !["ADMIN", "KAJUR", "BKKH", "SARPAS"].includes((session.user as any).role)) {
-      return { success: false, error: "Unauthorized: You do not have permission." };
+      return { success: false, error: \`Unauthorized (Debug): \${JSON.stringify(session)}\` };
     }
 
     const role = (session.user as any).role;
