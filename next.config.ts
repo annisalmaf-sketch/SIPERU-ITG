@@ -5,9 +5,9 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: "10mb",
     },
-    outputFileTracingIncludes: {
-      "/*": ["./dev.db"],
-    },
+  },
+  outputFileTracingIncludes: {
+    "/*": ["./dev.db"],
   },
   async redirects() {
     return [
