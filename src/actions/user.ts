@@ -40,7 +40,7 @@ export async function createUser(data: any) {
   const session = await getServerSession(authOptions);
   if (!session || (session.user as any).role !== "ADMIN") throw new Error("Unauthorized");
   
-  const { name, email, password, role } = data;
+  const { name, email, password, role, status } = data;
   
   // Hash password
   const bcrypt = await import("bcryptjs");
@@ -52,7 +52,8 @@ export async function createUser(data: any) {
         name,
         email,
         password: hashedPassword,
-        role: role || "MAHASISWA"
+        role: role || "MAHASISWA",
+        status: status || "AKTIF"
       }
     });
     revalidatePath("/dashboard/admin/users");
@@ -72,7 +73,8 @@ export async function updateUserDetails(id: string, data: any) {
   const updateData: any = {
     name: data.name,
     email: data.email,
-    role: data.role
+    role: data.role,
+    status: data.status
   };
   
   if (data.password) {

@@ -38,6 +38,13 @@ export function ApprovalCard({ booking, kajurLevel }: ApprovalCardProps) {
   const [note, setNote] = React.useState(booking.notes || "");
 
   const handleAction = (status: "APPROVED" | "REJECTED" | "PROCESSED" | "COMPLETED") => {
+    if (status === "REJECTED" && (!note || note.trim() === "")) {
+      toast.error("Catatan Diperlukan", {
+        description: "Alasan penolakan wajib diisi untuk menyatakan kenapa tahapan ditolak.",
+      });
+      return;
+    }
+
     startTransition(async () => {
       try {
         const result = await updateBookingStatus(booking.id, status, note);
@@ -148,7 +155,7 @@ export function ApprovalCard({ booking, kajurLevel }: ApprovalCardProps) {
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Catatan / Alasan</label>
                   <textarea 
-                     placeholder="Tambahkan catatan opsional..."
+                     placeholder="Tambahkan catatan (wajib diisi jika menolak)..."
                      value={note}
                      onChange={(e) => setNote(e.target.value)}
                      className="w-full text-sm p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none h-20"

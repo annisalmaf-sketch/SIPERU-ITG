@@ -9,13 +9,16 @@ import {
   XCircle, 
   FileText,
   Calendar,
-  ChevronRight
+  ChevronRight,
+  Ban
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { clsx } from "clsx";
+import { ReturnRoomButton } from "@/components/history/ReturnRoomButton";
+import { CancelBookingButton } from "@/components/history/CancelBookingButton";
 
 export default async function HistoryPage() {
   const session = await getServerSession(authOptions);
@@ -62,11 +65,12 @@ export default async function HistoryPage() {
               const isProcessed = item.status === "PROCESSED";
               const isCompleted = item.status === "COMPLETED";
               const isRejected = item.status === "REJECTED";
+              const isCancelled = item.status === "CANCELLED";
 
               return (
                 <div key={item.id} className={clsx(
                   "glass-card rounded-[2rem] overflow-hidden group flex flex-col transition-all duration-300 hover:shadow-2xl hover:shadow-slate-200 hover:-translate-y-1",
-                  isRejected && "opacity-80"
+                  (isRejected || isCancelled) && "opacity-80"
                 )}>
                   {/* Status Banner */}
                   <div className={clsx(
@@ -86,22 +90,25 @@ export default async function HistoryPage() {
                           isPending ? "bg-amber-50 text-amber-600 border-amber-100" : 
                           isProcessed ? "bg-blue-50 text-blue-600 border-blue-100" :
                           isCompleted ? "bg-purple-50 text-purple-600 border-purple-100" :
+                          isCancelled ? "bg-slate-100 text-slate-500 border-slate-200" :
                           "bg-red-50 text-red-600 border-red-100"
                         )}>
                           {isApproved && <CheckCircle2 size={14} />}
                           {isPending && <Hourglass size={14} className="animate-spin-slow" />}
                           {isRejected && <XCircle size={14} />}
+                          {isCancelled && <Ban size={14} />}
                           {item.status === "PROCESSED" ? "DIPROSES" : 
                            item.status === "COMPLETED" ? "SELESAI" : 
                            item.status === "APPROVED" ? "DISETUJUI" :
                            item.status === "REJECTED" ? "DITOLAK" : 
+                           item.status === "CANCELLED" ? "DIBATALKAN" : 
                            item.status === "PENDING_1" ? "MENUNGGU PERSETUJUAN BKKH" :
                            item.status === "PENDING_2" ? "MENUNGGU PERSETUJUAN SARPAS" :
                            item.status === "PENDING_3" ? "MENUNGGU PERSETUJUAN PENGELOLA RUANGAN" : "MENUNGGU"}
                         </div>
                         <h3 className={clsx(
                           "text-2xl font-black text-slate-900 group-hover:text-primary transition-colors",
-                          isRejected && "line-through opacity-40"
+                          (isRejected || isCancelled) && "line-through opacity-40"
                         )}>
                           {item.room.name}
                         </h3>
@@ -164,20 +171,27 @@ export default async function HistoryPage() {
                       </div>
                       
                       {isApproved ? (
-                        <a 
-                          href={`/history/print/${item.id}`} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="btn-primary py-2 px-5 text-sm group/btn flex items-center justify-center gap-2"
-                        >
-                          <Printer size={18} className="group-hover/btn:scale-110 transition-transform" />
-                          Cetak / Eksport PDF
-                        </a>
+                        <div className="flex flex-col sm:flex-row gap-2">
+                          <CancelBookingButton bookingId={item.id} />
+                          <ReturnRoomButton bookingId={item.id} />
+                          <a 
+                            href={`/history/print/${item.id}`} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="btn-primary py-2 px-5 text-sm group/btn flex items-center justify-center gap-2"
+                          >
+                            <Printer size={18} className="group-hover/btn:scale-110 transition-transform" />
+                            Cetak PDF
+                          </a>
+                        </div>
                       ) : (
-                        <button className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-primary transition-all group/btn">
-                          View Log
-                          <ChevronRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
-                        </button>
+                        <div className="flex items-center gap-4">
+                          {(isPending || isProcessed) && <CancelBookingButton bookingId={item.id} />}
+                          <button className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-primary transition-all group/btn">
+                            View Log
+                            <ChevronRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
+                          </button>
+                        </div>
                       )}
                     </div>
                   </div>

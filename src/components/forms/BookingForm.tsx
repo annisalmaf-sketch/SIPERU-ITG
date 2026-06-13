@@ -28,6 +28,7 @@ export function BookingForm({ rooms }: { rooms: Room[] }) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [startDate, setStartDate] = useState<string>("");
 
   const handleSubmit = async (formData: FormData) => {
     setError(null);
@@ -110,17 +111,19 @@ export function BookingForm({ rooms }: { rooms: Room[] }) {
         </div>
 
         {/* Schedule Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="flex flex-col gap-3">
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-widest px-1">Reservation Date</label>
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-widest px-1">Start Date</label>
             <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
                 <CalendarDays size={18} />
               </div>
               <input 
-                name="date"
+                name="startDate"
                 type="date" 
                 required
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
                 className="w-full pl-12 pr-4 py-4 rounded-2xl border border-slate-200 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 dark:focus:bg-slate-900 outline-none transition-all duration-300 bg-slate-50/50 dark:bg-slate-900/50 font-bold text-slate-700 dark:text-slate-200 text-sm"
               />
             </div>
@@ -136,6 +139,22 @@ export function BookingForm({ rooms }: { rooms: Room[] }) {
                 name="startTime"
                 type="time" 
                 required
+                className="w-full pl-12 pr-4 py-4 rounded-2xl border border-slate-200 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 dark:focus:bg-slate-900 outline-none transition-all duration-300 bg-slate-50/50 dark:bg-slate-900/50 font-bold text-slate-700 dark:text-slate-200 text-sm"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-widest px-1">End Date</label>
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
+                <CalendarDays size={18} />
+              </div>
+              <input 
+                name="endDate"
+                type="date" 
+                required
+                min={startDate}
                 className="w-full pl-12 pr-4 py-4 rounded-2xl border border-slate-200 dark:border-slate-800 focus:border-primary focus:ring-4 focus:ring-primary/10 dark:focus:bg-slate-900 outline-none transition-all duration-300 bg-slate-50/50 dark:bg-slate-900/50 font-bold text-slate-700 dark:text-slate-200 text-sm"
               />
             </div>

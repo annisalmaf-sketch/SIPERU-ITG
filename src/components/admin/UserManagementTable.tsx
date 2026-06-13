@@ -16,10 +16,12 @@ export function UserManagementTable({ initialUsers }: { initialUsers: any[] }) {
     name: "",
     email: "",
     password: "",
-    role: "MAHASISWA"
+    role: "MAHASISWA",
+    status: "AKTIF"
   });
 
   const roles = ["MAHASISWA", "DOSEN", "BKKH", "SARPAS", "KAJUR", "ADMIN"];
+  const statuses = ["AKTIF", "CUTI"];
 
   const filteredUsers = users.filter(user => 
     user.name.toLowerCase().includes(search.toLowerCase()) || 
@@ -34,11 +36,12 @@ export function UserManagementTable({ initialUsers }: { initialUsers: any[] }) {
         name: user.name,
         email: user.email,
         password: "", // Leave blank for edit unless they want to change it
-        role: user.role
+        role: user.role,
+        status: user.status || "AKTIF"
       });
     } else {
       setEditingUser(null);
-      setFormData({ name: "", email: "", password: "", role: "MAHASISWA" });
+      setFormData({ name: "", email: "", password: "", role: "MAHASISWA", status: "AKTIF" });
     }
     setIsModalOpen(true);
   };
@@ -163,6 +166,15 @@ export function UserManagementTable({ initialUsers }: { initialUsers: any[] }) {
                         {user.role === 'ADMIN' && <Shield size={10} />}
                         {user.role}
                       </span>
+                      {user.status === 'CUTI' ? (
+                        <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black tracking-widest uppercase bg-red-50 text-red-600 border border-red-100 dark:bg-red-900/20">
+                          CUTI
+                        </span>
+                      ) : (
+                        <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black tracking-widest uppercase bg-green-50 text-green-600 border border-green-100 dark:bg-green-900/20">
+                          AKTIF
+                        </span>
+                      )}
                     </td>
                     <td className="p-5">
                       <p className="text-sm font-bold text-slate-600 dark:text-slate-400">
@@ -172,6 +184,7 @@ export function UserManagementTable({ initialUsers }: { initialUsers: any[] }) {
                     <td className="p-5 pr-8 text-right">
                       <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button 
+                          suppressHydrationWarning
                           onClick={() => handleOpenModal(user)}
                           className="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-lg transition-all"
                           title="Edit Pengguna"
@@ -179,6 +192,7 @@ export function UserManagementTable({ initialUsers }: { initialUsers: any[] }) {
                           <Edit2 size={16} />
                         </button>
                         <button 
+                          suppressHydrationWarning
                           onClick={() => handleDelete(user.id, user.name)}
                           className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
                           title="Hapus Pengguna"
@@ -254,6 +268,19 @@ export function UserManagementTable({ initialUsers }: { initialUsers: any[] }) {
                 >
                   {roles.map(r => (
                     <option key={r} value={r}>{r}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Status Akademik</label>
+                <select 
+                  value={formData.status}
+                  onChange={(e) => setFormData({...formData, status: e.target.value})}
+                  className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-bold text-slate-700 dark:text-white appearance-none"
+                >
+                  {statuses.map(s => (
+                    <option key={s} value={s}>{s}</option>
                   ))}
                 </select>
               </div>
